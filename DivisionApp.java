@@ -1,0 +1,74 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DivisionApp extends JFrame 
+{
+
+    private JTextField num1Field, num2Field, resultField;
+    private JButton divideButton;
+
+    public DivisionApp() 
+    {
+        setTitle("Integer Division App");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        JLabel num1Label = new JLabel("Num1:");
+        num1Field = new JTextField(10);
+
+        JLabel num2Label = new JLabel("Num2:");
+        num2Field = new JTextField(10);
+
+        JLabel resultLabel = new JLabel("Result:");
+        resultField = new JTextField(10);
+        resultField.setEditable(false);
+
+        divideButton = new JButton("Divide");
+
+        add(num1Label);
+        add(num1Field);
+        add(num2Label);
+        add(num2Field);
+        add(divideButton);
+        add(resultLabel);
+        add(resultField);
+
+        divideButton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                try 
+                {
+                    String num1Text = num1Field.getText();
+                    String num2Text = num2Field.getText();
+
+                    int num1 = Integer.parseInt(num1Text);
+                    int num2 = Integer.parseInt(num2Text);
+
+                    if (num2 == 0) 
+                    {
+                        throw new ArithmeticException("Cannot divide by zero");
+                    }
+                    int result = num1 / num2;
+
+                    resultField.setText(String.valueOf(result));
+                } 
+                catch (NumberFormatException ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "Please enter valid integers.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                } catch (ArithmeticException ex) 
+                {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Math Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        setVisible(true);
+    }
+    public static void main(String[] args) 
+    {
+        new DivisionApp();
+    }
+}
